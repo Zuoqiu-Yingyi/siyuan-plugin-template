@@ -23,9 +23,9 @@ import {
 import { Logger } from "@workspace/utils/logger";
 import { mergeIgnoreArray } from "@workspace/utils/misc/merge";
 
-import Settings from "./components/Settings.svelte";
-
 import { DEFAULT_CONFIG } from "./configs/default";
+
+import Settings from "./components/Settings.svelte";
 
 import type { ISiyuanGlobal } from "@workspace/types/siyuan";
 

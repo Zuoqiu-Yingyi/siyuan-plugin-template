@@ -63,15 +63,15 @@
         general, // 常规设置
     };
 
-    const panels_focus_key = PanelKey.general;
-    const panels = [
-        {
-            key: PanelKey.general,
-            text: i18n.settings.generalSettings.title,
-            name: i18n.settings.generalSettings.title,
-            icon: "#iconSettings",
-        },
-    ] as const satisfies ITab[];
+        const panels_focus_key = PanelKey.general;
+        const panels = [
+            {
+                key: PanelKey.general,
+                text: i18n.settings.generalSettings.title,
+                name: i18n.settings.generalSettings.title,
+                icon: "#iconSettings",
+            },
+        ] as const satisfies ITab[];
 </script>
 
 <Panels
