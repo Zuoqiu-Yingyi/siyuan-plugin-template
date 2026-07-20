@@ -1,4 +1,4 @@
-> **[READ ONLY] Subtree split of the [siyuan-packages-monorepo](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo) [/workspace/plugins/template](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo/tree/main/workspace/plugins/template)**
+> **Git submodule of the [siyuan-packages-monorepo](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo) at [/workspace/plugins/template](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo/tree/main/workspace/plugins/template)**
 
 <div align="center">
 <img alt="icon" src="./public/icon.png" style="width: 8em; height: 8em;">
@@ -29,17 +29,21 @@
 
 ### RELEASE STEPS
 
-1. Update the version number in `<subrepo-root-dir>/package.json` and `<subrepo-root-dir>/public/plugin.json`, then commit the changes in [monorepo](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo).
-2. Run script `./scripts/git-subtree/template/push.ps1` with the folowing command in **monorepo root dir** to push the subtree to sub-repository (`dev` branch).
-   ```powershell
-   pwsh -f "./scripts/git-subtree/template/push.ps1"
+1. Update the version number in `<subrepo-root-dir>/package.json` and `<subrepo-root-dir>/public/plugin.json`, then commit the changes in this sub-repository on the `main` branch.
+2. Push the `main` branch to `origin`.
+   ```bash
+   git push origin main
    ```
-3. Create a pull request from `dev` branch to `main` branch in sub-repository.
-4. Merge the pull request.
-5. Await for the CD workflow `release-please.yml` to complete, it will create a _release pull request_ in sub-repository.
-6. Merge the _release pull request_, it will create a new _pre-release_ with current [changelog](./CHANGELOG.md) and a new _tag_ with [semantic version](https://semver.org/) in sub-repository.
-7. Await for the CD workflow `build.yml` to complete, it will update the distribution files to `publish` branch in sub-repository.
-8. Await for the CD workflow `release-distribution.yml` to complete, it will create a new _pre-release_ with an asset named `package.zip` and a new _tag_ with timestamp in sub-repository.
+3. Update the submodule pointer in [monorepo](https://github.com/Zuoqiu-Yingyi/siyuan-packages-monorepo) to this sub-repository commit, then commit the pointer change in monorepo.
+   ```bash
+   cd <monorepo-root-dir>
+   git add workspace/plugins/template
+   git commit -m "chore(submodule): update template"
+   ```
+4. Await for the CD workflow `release-please.yml` to complete, it will create a _release pull request_ in sub-repository.
+5. Merge the _release pull request_, it will create a new _pre-release_ with current [changelog](./CHANGELOG.md) and a new _tag_ with [semantic version](https://semver.org/) in sub-repository.
+6. Await for the CD workflow `build.yml` to complete, it will update the distribution files to `publish` branch in sub-repository.
+7. Await for the CD workflow `release-distribution.yml` to complete, it will create a new _pre-release_ with an asset named `package.zip` and a new _tag_ with timestamp in sub-repository.
 
 ## CHANGELOG
 
