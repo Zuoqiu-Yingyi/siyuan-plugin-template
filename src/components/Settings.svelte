@@ -58,20 +58,19 @@
         );
     }
 
-    enum PanelKey {
-        // eslint-disable-next-line no-unused-vars
-        general, // 常规设置
-    };
+    const PanelKey = {
+        general: "general", // 常规设置
+    } as const;
 
-        const panels_focus_key = PanelKey.general;
-        const panels = [
-            {
-                key: PanelKey.general,
-                text: i18n.settings.generalSettings.title,
-                name: i18n.settings.generalSettings.title,
-                icon: "#iconSettings",
-            },
-        ] as const satisfies ITab[];
+    const panels_focus_key = PanelKey.general;
+    const panels = [
+        {
+            key: PanelKey.general,
+            text: i18n.settings.generalSettings.title,
+            name: i18n.settings.generalSettings.title,
+            icon: "#iconSettings",
+        },
+    ] as const satisfies ITab[];
 </script>
 
 <Panels
