@@ -14,18 +14,18 @@
     ],
     "displayName": {
         "default": "",
-        "zh_CN": "",
-        "zh_CHT": ""
+        "zh-CN": "",
+        "zh-TW": ""
     },
     "description": {
         "default": "",
-        "zh_CN": "",
-        "zh_CHT": ""
+        "zh-CN": "",
+        "zh-TW": ""
     },
     "readme": {
         "default": "README.md",
-        "zh_CN": "README_zh_CN.md",
-        "zh_CHT": "README_zh_CN.md"
+        "zh-CN": "README.zh-CN.md",
+        "zh-TW": "README.zh-CN.md"
     },
     "funding": {
         "openCollective": "",
