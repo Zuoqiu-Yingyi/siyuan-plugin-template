@@ -57,26 +57,26 @@ export default class TemplatePlugin extends siyuan.Plugin {
         this.SETTINGS_DIALOG_ID = `${this.name}-settings-dialog`;
     }
 
-    public override onload(): void {
+    public override async onload(): Promise<void> {
         // this.logger.debug(this);
 
         /* 注册图标 */
         this.addIcons([
         ].join(""));
 
-        this.loadData(TemplatePlugin.GLOBAL_CONFIG_NAME)
-            .then((config) => {
-                if (config) {
-                    this.config = mergeIgnoreArray(DEFAULT_CONFIG, config) as IConfig;
-                }
-                else {
-                    this.config = mergeIgnoreArray(DEFAULT_CONFIG);
-                    this.updateConfig();
-                }
-            })
-            .catch((error) => this.logger.error(error))
-            .finally(() => {
-            });
+        try {
+            const config = await this.loadData(TemplatePlugin.GLOBAL_CONFIG_NAME);
+            if (config) {
+                this.config = mergeIgnoreArray(DEFAULT_CONFIG, config) as IConfig;
+            }
+            else {
+                this.config = mergeIgnoreArray(DEFAULT_CONFIG);
+                this.updateConfig();
+            }
+        }
+        catch (error) {
+            this.logger.error(error);
+        }
     }
 
     public override onLayoutReady(): void {
