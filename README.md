@@ -27,6 +27,22 @@
 
 ## DEVELOPER GUIDE
 
+### BUILD
+
+The plugin has two entries, both built into `dist/`:
+
+| Entry           | Output                          | Runs in                           | Script              |
+| --------------- | ------------------------------- | --------------------------------- | ------------------- |
+| `src/index.ts`  | `dist/index.js` (CommonJS)      | SiYuan frontend                   | `pnpm build:plugin` |
+| `src/kernel.ts` | `dist/kernel.js` (plain script) | goja runtime of the SiYuan kernel | `pnpm build:kernel` |
+
+- `pnpm build` and `pnpm build:dev` build the frontend plugin first, then the kernel plugin. The kernel build does not empty `dist/`.
+- SiYuan starts `kernel.js` only when `public/plugin.json` declares `kernels`. It lists the backends where the kernel plugin runs, matched like `backends` (`all` for every backend).
+- `minAppVersion` is `3.7.3`: kernel plugins shipped in SiYuan 3.7.0, and 3.7.3 fixed kernel plugins not loading on mobile and early RPC calls failing during startup ([siyuan#18271](https://github.com/siyuan-note/siyuan/issues/18271)).
+- SiYuan evaluates `kernel.js` as a plain script, not an ES module, so the bundle must not contain `import` or `export`: do not export from `src/kernel.ts`, and do not import runtime values from external modules such as `siyuan`. The kernel plugin has no DOM; use the global `siyuan` object typed by `siyuan/kernel` instead.
+- The frontend plugin calls kernel RPC methods with `this.kernel.rpc.call[method](...args)`. Keep method names in `src/constants.ts` so both sides share them.
+- For a frontend-only plugin, delete `src/kernel.ts`, the `kernels` field in `public/plugin.json` and the `build:kernel` script, then drop the kernel step from the `build` and `build:dev` scripts in `package.json`.
+
 ### RELEASE STEPS
 
 1. Update the version number in `<subrepo-root-dir>/package.json` and `<subrepo-root-dir>/public/plugin.json`, then commit the changes in this sub-repository on the `main` branch.

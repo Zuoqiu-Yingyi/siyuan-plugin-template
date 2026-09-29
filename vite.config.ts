@@ -19,8 +19,10 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { sveltePreprocess } from "svelte-preprocess";
 import { defineConfig } from "vite";
 
+import type { BuildOptions } from "vite";
+
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig((env) => ({
     base: `./`,
     resolve: {
         tsconfigPaths: true,
@@ -35,14 +37,14 @@ export default defineConfig({
             ],
         }),
     ],
-    build: {
+    // eslint-disable-next-line ts/no-use-before-define
+    build: build(env.mode),
+}));
+
+function build(mode: string): BuildOptions {
+    const build: BuildOptions = {
         minify: true,
         // sourcemap: "inline",
-        lib: {
-            entry: resolve(import.meta.dirname, "src/index.ts"),
-            fileName: "index",
-            formats: ["cjs"],
-        },
         rollupOptions: {
             external: [
                 "siyuan",
@@ -53,6 +55,7 @@ export default defineConfig({
                     // console.log(chunkInfo);
                     switch (chunkInfo.name) {
                         case "index":
+                        case "kernel":
                             return "[name].js";
 
                         default:
@@ -72,5 +75,31 @@ export default defineConfig({
                 },
             },
         },
-    },
-});
+    };
+
+    switch (mode) {
+        /* 内核插件 dist/kernel.js: 思源内核用 goja 以普通脚本 (非 ES module) 执行, 产物中不能出现 import/export */
+        case "kernel":
+            build.lib = {
+                entry: resolve(import.meta.dirname, "src/kernel.ts"),
+                fileName: "kernel",
+                formats: ["es"],
+            };
+            // 在 plugin 模式之后构建, 不能清空 dist 中已生成的前端插件产物
+            build.emptyOutDir = false;
+            break;
+
+        /* 前端插件 dist/index.js */
+        case "plugin":
+        default:
+            build.lib = {
+                entry: resolve(import.meta.dirname, "src/index.ts"),
+                fileName: "index",
+                formats: ["cjs"],
+            };
+            build.emptyOutDir = true;
+            break;
+    }
+
+    return build;
+}

@@ -3,8 +3,11 @@
     "author": "Zuoqiu Yingyi",
     "url": "https://github.com/Zuoqiu-Yingyi/siyuan-plugin-template",
     "version": "0.0.0",
-    "minAppVersion": "2.9.0",
+    "minAppVersion": "3.7.3",
     "keywords": [
+    ],
+    "kernels": [
+        "all"
     ],
     "backends": [
         "all"
