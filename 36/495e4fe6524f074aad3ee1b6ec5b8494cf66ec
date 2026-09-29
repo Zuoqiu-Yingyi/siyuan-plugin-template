@@ -1,0 +1,33 @@
+src/constants.ts
+  s_60a0905ec0afad::t_78cabe3170a1d8 1-21
+vite.config.ts
+  s_60a0905ec0afad::t_817daf2cd2140e 81
+  s_60a0905ec0afad::t_46f9fdc805be6f 22-23,25,40-45,58,78-80,82-105
+src/kernel.ts
+  s_60a0905ec0afad::t_e87067c9903eb3 24,28-29
+  s_60a0905ec0afad::t_a023f3d37b03b5 1-23,25-27,30-66
+README.md
+  s_60a0905ec0afad::t_7671f9775733f4 34-37,40,42,44
+  s_60a0905ec0afad::t_6fdfa290762052 41
+  s_60a0905ec0afad::t_c32965e58b7a7d 30-33,38-39,43,45
+package.json
+  s_60a0905ec0afad::t_6cb241037ffac1 8-11
+public/plugin.json
+  s_60a0905ec0afad::t_9c87bb7b25fd95 6,9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.4.45-trip",
+  "base_commit_sha": "36495e4fe6524f074aad3ee1b6ec5b8494cf66ec",
+  "prompts": {},
+  "sessions": {
+    "s_60a0905ec0afad": {
+      "agent_id": {
+        "tool": "chengxiaobang",
+        "id": "s_selsfrtkemdf",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Yingyi / 颖逸 <49649786+Zuoqiu-Yingyi@users.noreply.github.com>"
+    }
+  }
+}
